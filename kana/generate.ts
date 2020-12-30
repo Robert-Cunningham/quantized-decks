@@ -21,13 +21,12 @@ const katakanaCharacterCards = alphabetGenerator<Katakana, Romaji>((x: Katakana)
 const hiraganaWordCards = hiraganaWords.map(w => ({ front: w, back: toRomaji(w) }))
 const katakanaWordCards = katakanaWords.map(w => ({ front: w, back: toRomaji(w) }))
 
-console.log(hiraganaWordCards)
-
-const meta = { version: '0.0.1' }
+const meta = { version: '0.0.1', author: 'Robert Cunningham' }
 
 export const kanaToRomajiID = (kana: string) => `${kana} kana-to-romaji`
 
 const { writeDeck, addCard, deckID } = initDeck('Robert-Cunningham', 'kana', 'Kana', meta)
+
 hiraganaWordCards.forEach((fact) => {
     addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
 })
@@ -41,4 +40,4 @@ katakanaCharacterCards.forEach((fact) => {
     addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
 })
 
-writeDeck("deck.yaml")
+writeDeck()
