@@ -18,8 +18,8 @@ const katakanaWords = words.filter(x => isKatakana(x))
 const hiraganaCharacterCards = alphabetGenerator<Hiragana, Romaji>((x: Hiragana) => hiragana[x], Object.keys(hiragana), []).forward
 const katakanaCharacterCards = alphabetGenerator<Katakana, Romaji>((x: Katakana) => katakana[x], Object.keys(katakana), []).forward
 
-const hiraganaWordCards = hiraganaWords.map(w => ({ front: w, back: toRomaji(w) }))
-const katakanaWordCards = katakanaWords.map(w => ({ front: w, back: toRomaji(w) }))
+const hiraganaWordCards = _.take(hiraganaWords.map(w => ({ front: w, back: toRomaji(w) })), 200)
+const katakanaWordCards = _.take(katakanaWords.map(w => ({ front: w, back: toRomaji(w) })), 200)
 
 const meta = { version: '0.0.1', author: 'Robert Cunningham' }
 
@@ -27,17 +27,17 @@ export const kanaToRomajiID = (kana: string) => `${kana} kana-to-romaji`
 
 const { writeDeck, addCard, deckID } = initDeck('Robert-Cunningham', 'kana', 'Kana', meta)
 
+hiraganaCharacterCards.forEach((fact) => {
+    addCard(fact.front, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
+})
 hiraganaWordCards.forEach((fact) => {
-    addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
+    addCard(fact.front, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
 })
 katakanaWordCards.forEach((fact) => {
-    addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
-})
-hiraganaCharacterCards.forEach((fact) => {
-    addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
+    addCard(fact.front, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
 })
 katakanaCharacterCards.forEach((fact) => {
-    addCard(fact.front, fact.back, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
+    addCard(fact.front, kanaToRomajiID(fact.front), { type: answer_type.text_precise, value: fact.back })
 })
 
 writeDeck()
