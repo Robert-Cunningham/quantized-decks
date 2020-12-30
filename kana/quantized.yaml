@@ -1,0 +1,8 @@
+deck:
+  generator: "@quantized/generators/dist/standard/alphabet"
+    type: "npm"
+    info:
+      words: ./sources/words.yaml
+      symbols: ./sources/symbols.yaml
+  generator: "javascript"
+    type: "custom"
